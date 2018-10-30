@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from dogs_cats_dataset_creation import train_dir, validation_dir
+import os
 from keras import models
 from keras import layers
 from keras import optimizers
@@ -37,23 +37,27 @@ train_datagen = ImageDataGenerator(
 )
 validation_datagen = ImageDataGenerator(rescale=1./255)
 
+base_dir = 'C:\/Users\mbrad\Downloads\kaggle\dogs-vs-cats\cats_dogs_small'
+train_dir = os.path.join(base_dir, 'train')
+validation_dir = os.path.join(base_dir, 'validation')
+
 train_generator = train_datagen.flow_from_directory(
     train_dir,
     target_size=(150, 150),
-    batch_size=32,
+    batch_size=40,
     class_mode='binary'
 )
 validation_generator = validation_datagen.flow_from_directory(
     validation_dir,
     target_size=(150, 150),
-    batch_size=32,
+    batch_size=40,
     class_mode='binary'
 )
 
 history = model.fit_generator(
     train_generator,
     steps_per_epoch=100,
-    epochs=100,
+    epochs=65,
     validation_data=validation_generator,
     validation_steps=50
 )
