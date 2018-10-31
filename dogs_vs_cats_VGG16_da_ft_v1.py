@@ -26,7 +26,7 @@ model.add(Dense(1, activation='sigmoid'))
 
 print(len(model.trainable_weights))
 
-convolution_base.trainable = False
+convolution_base.trainable = True
 
 print(len(model.trainable_weights))
 
