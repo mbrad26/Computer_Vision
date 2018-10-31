@@ -7,24 +7,25 @@ from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 from time import time
 
-
 start = time()
-
 
 base_dir = 'C:\/Users\mbrad\Downloads\kaggle\dogs-vs-cats\cats_dogs_small'
 train_dir = os.path.join(base_dir, 'train')
 validation_dir = os.path.join(base_dir, 'validation')
 
+
 conv_base = VGG16(weights='imagenet',
                   include_top=False,
                   input_shape=(150, 150, 3))
-conv_base.trainable = False
 
 model = models.Sequential()
 model.add(conv_base)
 model.add(Flatten())
 model.add(Dense(256, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
+
+
+conv_base.trainable = False
 
 
 train_datagen = ImageDataGenerator(
@@ -65,6 +66,8 @@ history = model.fit_generator(
     validation_data=validation_generator,
     validation_steps=50
 )
+
+print('Number of weights: ', len(model.trainable_weights))
 
 end = time()
 print('Time Elapsed: ', (end - start) / 60, ' minutes')

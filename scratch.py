@@ -8,18 +8,6 @@ from keras.layers import Dense, Dropout
 from keras import optimizers
 
 
-base_dir = 'C:\/Users\mbrad\Downloads\kaggle\dogs-vs-cats\cats_dogs_small'
-train_dir = os.path.join(base_dir, 'train')
-validation_dir = os.path.join(base_dir, 'validation')
-
-conv_base = VGG16(weights='imagenet',
-                  include_top=False,
-                  input_shape=(150, 150, 3))
-
-datagen = ImageDataGenerator(rescale=1./255)
-batch_size = 20
-
-
 def extract_features(directory, samples):
     features = np.zeros((samples, 4, 4, 512))
     labels = np.zeros(samples)
@@ -28,25 +16,36 @@ def extract_features(directory, samples):
                                             batch_size=batch_size,
                                             class_mode='binary')
     i = 0
-    for input_batch, labels_batch in generator:
-        features_batch = conv_base.predict(input_batch)
-        features[i*batch_size: (i+1)*batch_size] = features_batch
-        labels[i*batch_size: (i+1)*batch_size]=labels_batch
+    for inputs_batch, labels_batch in generator:
+        features_input = convolution_base.predict(inputs_batch)
+        features[i * batch_size: (i + 1) * batch_size] = features_input
+        labels[i * batch_size: (i + 1) * batch_size] = labels_batch
         i += 1
-        if i*batch_size >= samples:
+        if i * batch_size >= samples:
             break
-
     return features, labels
+
+
+base_dir = 'C:\/Users\mbrad\Downloads\kaggle\dogs-vs-cats\cats_dogs_small'
+train_dir = os.path.join(base_dir, 'train')
+validation_dir = os.path.join(base_dir, 'validation')
+
+datagen = ImageDataGenerator(rescale=1./255)
+batch_size = 20
 
 
 train_data, train_labels = extract_features(train_dir, 2000)
 validation_data, validation_labels = extract_features(validation_dir, 1000)
 
-train_data = np.reshape(train_data, (2000, 4*4*512))
-validation_data = np.reshape(validation_data, (1000, 4*4*512))
+train_data = np.reshape(train_data, (2000, 4 * 4 * 512))
+validation_data = np.reshape(validation_data, (1000, 4 * 4 * 512))
+
+
+convolution_base = VGG16(weights='imagenet',
+                         include_top=False)
 
 model = models.Sequential()
-model.add(Dense(256, activation='relu', input_dim=4*4*512))
+model.add(Dense(256, activation='relu', input_dim=4 * 4 * 512))
 model.add(Dropout(0.5))
 model.add(Dense(1, activation='sigmoid'))
 
@@ -77,3 +76,37 @@ plt.plot(epochs, acc, 'bo', label='Acc')
 plt.plot(epochs, val_acc, 'b', label='Val Acc')
 plt.legend()
 plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

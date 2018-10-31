@@ -27,29 +27,29 @@ model.add(layers.Dense(10, activation='softmax'))
 
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['acc'])
 
-model.fit(
+history = model.fit(
     train_data,
     train_labels,
     epochs=5,
-    batch_size=128)
+    batch_size=128,
+    validation_data=(val_data, val_labels))
 
 results = model.evaluate(test_data, test_labels)
 print(results)
 
-# hist_dict = history.history
-#
-# loss = hist_dict['loss']
-# acc = hist_dict['acc']
-# val_loss = hist_dict['val_loss']
-# val_acc = hist_dict['val_acc']
-# epochs = range(1, 10 + 1)
-#
-# plt.plot(epochs, loss, 'bo', label='Training loss')
-# plt.plot(epochs, val_loss, 'b', label='Validation loss')
-# plt.legend()
-# plt.show()
-#
-# plt.plot(epochs, acc, 'bo', label='Training acc')
-# plt.plot(epochs, val_acc, 'b', label='Validation acc')
-# plt.legend()
-# plt.show()
+history_dict = history.history
+loss = history_dict['loss']
+acc = history_dict['acc']
+val_loss = history_dict['val_loss']
+val_acc = history_dict['val_acc']
+epochs = range(1, len(acc) + 1)
+
+plt.plot(epochs, loss, 'bo', label='Loss')
+plt.plot(epochs, val_loss, 'b', label='Val Loss')
+plt.legend()
+plt.figure()
+
+plt.plot(epochs, acc, 'bo', label='Acc')
+plt.plot(epochs, val_acc, 'b', label='Val Acc')
+plt.legend()
+plt.show()
