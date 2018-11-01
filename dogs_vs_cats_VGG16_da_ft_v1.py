@@ -58,22 +58,8 @@ history = model.fit_generator(train_generator,
                               validation_data=validation_generator,
                               validation_steps=50,)
 
-history_dict = history.history
-loss = history_dict['loss']
-acc = history_dict['acc']
-val_loss = history_dict['val_loss']
-val_acc = history_dict['val_acc']
-epochs = range(1, len(acc) + 1)
 
-plt.plot(epochs, loss, 'bo', label='Loss')
-plt.plot(epochs, val_loss, 'b', label='Val Loss')
-plt.legend()
-plt.figure()
 
-plt.plot(epochs, acc, 'bo', label='Acc')
-plt.plot(epochs, val_acc, 'b', label='Val Acc')
-plt.legend()
-plt.show()
 
 
 conv_base.trainable = True
