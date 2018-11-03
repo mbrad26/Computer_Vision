@@ -5,7 +5,7 @@ from keras import models
 from keras.preprocessing import image
 
 
-model = load_model('cats_dogs_small_v3.h5')
+model = load_model('C:\/Users\mbrad\PycharmProjects\Computer_Vision\cats_dogs_small_v3.h5')
 model.summary()
 
 img_path = 'C:\/Users\mbrad\Downloads\kaggle\dogs-vs-cats\cats_dogs_small\/test\cats\cat.2944.jpg'
@@ -51,9 +51,11 @@ for layer_name, layer_activation in zip(layer_names, activations):
 
             display_grid[row * size: (row + 1) * size, col * size: (col + 1) * size] = channel_image
 
-        scale = 1./size
+    scale = 1./size
 
-        plt.figure(figsize=(scale * display_grid.shape[1], scale * display_grid.shape[0]))
-        plt.title(layer_name)
-        plt.grid(False)
-        plt.imshow(display_grid, aspect='auto', cmap='viridis')
+    plt.figure(figsize=(scale * display_grid.shape[1], scale * display_grid.shape[0]))
+    plt.title(layer_name)
+    plt.grid(False)
+    plt.imshow(display_grid, aspect='auto', cmap='viridis')
+
+plt.show()

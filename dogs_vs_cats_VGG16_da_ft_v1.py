@@ -59,9 +59,6 @@ history = model.fit_generator(train_generator,
                               validation_steps=50,)
 
 
-
-
-
 conv_base.trainable = True
 
 set_trainable = False
