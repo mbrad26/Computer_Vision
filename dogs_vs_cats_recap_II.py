@@ -2,13 +2,13 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from keras import models
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from keras.layers import Dense, Dropout
 from keras.preprocessing.image import ImageDataGenerator
 from keras import optimizers
 from keras.applications import VGG16
 
 
-# III. Using a pretrained Convnet, no data augumentation, batch_size=20, Dropout.
+# III. Using a pretrained Convnet, no data augmentation, batch_size=20, Dropout.
 
 conv_base = VGG16(weights='imagenet',
                   include_top=False,
