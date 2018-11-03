@@ -1,5 +1,4 @@
 import os
-import numpy as np
 import matplotlib.pyplot as plt
 from keras import models
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
